@@ -1,0 +1,190 @@
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    @media (max-width: 940px) {
+        width: 0px;
+        height: 0px;
+    }
+}
+
+*::-webkit-scrollbar-track {
+    border-radius: 2px;
+    background-color: var(--frame1);
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: var(--accent);
+}
+
+
+/* Links */
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all .4s ease-in-out;
+ 
+    &:visited  {
+        text-decoration: none;
+        color: var(--accent);
+    }
+    
+    &:hover  {
+        text-decoration: none;
+        opacity: .6;
+        transition: all .4s ease-in-out;
+    }
+}
+
+
+/* Common */
+
+aside, nav, footer, header, section, main {
+	display: block;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    font-size: inherit;
+	font-weight: inherit;
+}
+
+ul, ul li {
+	list-style-type: none;
+}
+
+img {
+	vertical-align: top;
+}
+
+img, svg {
+	max-width: 100%;
+	height: auto;
+}
+
+address {
+  font-style: normal;
+}
+
+
+/* Form */
+
+input, textarea, button, select {
+	font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    background-color: transparent;
+}
+
+input {
+    caret-color: var(--accent);
+    caret-width: 6px;
+    
+    /* Firefox */
+    &::-moz-selection {
+        background-color: var(--new-op);
+    }
+    
+    /* WebKit/Blink */
+    &::selection {
+        background-color: var(--new-op);
+    }
+}
+
+input::-ms-clear {
+	display: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+button, 
+input[type='submit'] {
+    outline: none;
+    border: none;
+    display: inline-block;
+    box-shadow: none;
+    background-color: transparent;
+    background: none;
+    cursor: pointer;
+}
+
+input:focus, input:active,
+button:focus, button:active {
+    outline: none;
+}
+
+button::-moz-focus-inner {
+	padding: 0;
+	border: 0;
+}
+
+label {
+	cursor: pointer;
+}
+
+legend {
+	display: block;
+}
+
+
+
+/* Table */
+
+.table-wrapper {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    overflow-x: auto;
+    border-collapse: collapse;
+    
+    tr {
+        border-bottom: 1px solid var(--frame-color);
+    }
+    thead {
+        th {
+            padding: 8px;
+            min-width: 180px;
+            font-weight: 700;
+            font-style: normal;
+            text-align: center;
+            line-height: normal;
+            color: var(--color);
+        }
+    }
+    tbody { 
+        td {
+            padding: 8px;
+            min-width: 180px;
+            font-weight: 400;
+            font-style: normal;
+            line-height: normal;
+            color: var(--color);
+            vertical-align: top;
+            text-align: center;
+        }
+    }
+}
+
+
+hr {
+    box-shadow: none;
+    border: none;
+    border-top: 1px solid  var(--accent);
+}

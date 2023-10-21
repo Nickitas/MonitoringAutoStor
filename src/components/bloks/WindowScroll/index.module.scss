@@ -1,0 +1,29 @@
+
+
+.windowScroll {
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid var(--brd);
+    background: var(--frame1);
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+
+    *::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+        @media (max-width: 940px) {
+            width: 0px;
+            height: 0px;
+        }
+    }
+  
+    &::-webkit-scrollbar-track {
+        border-radius: 2px;
+        background-color: var(--frame1);
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        border-radius: 2px;
+        background-color: var(--accent);
+    }
+}

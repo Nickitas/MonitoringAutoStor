@@ -1,0 +1,30 @@
+@import '../../../../assets/mixins/responsive_font.scss';
+
+.title {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .back {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color);
+        cursor: pointer;
+        transition: all .4s ease-in-out;
+
+        &:hover {
+            transition: all .4s ease-in;
+            opacity: .6;
+            transform: translateX(-5px)
+        }
+    }
+
+    h1 {
+        @include responsive-font(24, 22);
+        line-height: 1.5;
+        font-weight: 600;
+        color: var(--color);
+    }
+}

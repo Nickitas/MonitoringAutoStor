@@ -1,0 +1,76 @@
+@import '../../../assets/mixins/responsive_font.scss';
+
+.header {
+    padding: 12px 0;
+    width: 100%;
+    background-color: var(--main);
+
+    .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 4000px;
+    }
+
+    .first {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .logo {
+        width: 32px;
+        max-width: 32px;
+        min-width: 32px;
+        cursor: pointer;
+        transition: all .4s ease-in-out;
+        &:hover {
+            opacity: .6;
+            transition: all .4s ease-in;
+        }
+    }
+    nav.navigation {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-grow: 1;
+        gap: 1rem;
+
+        .item {
+            position: relative;
+
+            a {
+                @include responsive_font(13, 12);
+                font-style: normal;
+                font-weight: 600;
+                line-height: 1.5;
+                color: var(--color);
+                opacity: .6;
+                transition: all .4s ease-in-out;
+            }
+            
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -17px;
+                left: 0;
+                width: 0;
+                height: 3px;
+                background-color: var(--new);
+                border-radius: 2px;
+                transition: all .4s ease-in-out;
+            }
+            &.active, 
+            &:hover {
+                transition: all .4s ease-in;
+                a {
+                    opacity: 1;
+                }
+                &::after {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,28 @@
+
+.themeButton {
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    min-width: 32px;
+    max-width: 32px;
+    width: 100%;
+    min-height: 32px;
+    max-height: 32px;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--frame1);
+    background-color: var(--frame1);
+    color: var(--color);
+
+    cursor: pointer;
+    transition: border-color 0.25s;
+    
+    &:hover {
+        border-color: var(--accent);
+    }
+    &:focus,
+    &:focus-visible {
+        outline: 4px auto -webkit-focus-ring-color;
+    }
+}

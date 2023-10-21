@@ -1,0 +1,25 @@
+@import '../../../assets/mixins/responsive_font.scss';
+
+.frame {
+    margin: auto 0 0 0;
+    background-color: var(--frame5);
+
+    .row {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    a {
+        margin: 0;
+        padding: 10px 20px;
+        @include responsive_font(14, 12);
+        line-height: normal;
+        font-weight: 400;
+        text-align: right;
+        -webkit-text-decoration: underline;
+        text-decoration: underline;
+        color: var(--color);
+    }
+}
