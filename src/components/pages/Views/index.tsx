@@ -45,8 +45,8 @@ const BuildingPlanCanvas: FC<BuildingPlanCanvasProps> = ({ children, currentWare
             context.fillStyle = '#F4F4F4';
             context.strokeStyle = '#000';
             context.lineWidth = 2;
-            context?.fillRect(x, y, rackWidth, fixedRackHeight);
-            context?.strokeRect(x, y, rackWidth, fixedRackHeight);
+            context.fillRect(x, y, rackWidth, fixedRackHeight);
+            context.strokeRect(x, y, rackWidth, fixedRackHeight);
         }
 
         const startX = (canvasWidth - rackWidth) / 2;
@@ -83,12 +83,12 @@ const BuildingPlanCanvas: FC<BuildingPlanCanvasProps> = ({ children, currentWare
             context.fillStyle = '#526ED3';
             context.strokeStyle = '#526ED3';
             context.lineWidth = 1;
-            context?.beginPath();
-            context?.arc(x, y, 5, 0, 2 * Math.PI);
-            context?.fill();
+            context.beginPath();
+            context.arc(x, y, 5, 0, 2 * Math.PI);
+            context.fill();
 
             context.font = "18px Arial";
-            context?.fillText(label, x + 10, y + 5);
+            context.fillText(label, x + 10, y + 5);
         }
 
         unloadPoints.forEach((point, index) => {
@@ -110,24 +110,24 @@ const BuildingPlanCanvas: FC<BuildingPlanCanvasProps> = ({ children, currentWare
 
         context.strokeStyle = 'rgba(82, 110, 211, 0.32)';
         context.lineWidth = 2;
-        context?.setLineDash([5, 10]); // пунктир
+        context.setLineDash([5, 10]); // пунктир
 
         // Рисуем вертикальную линию
-        context?.beginPath();
-        context?.moveTo(verticalLineStart.x, verticalLineStart.y);
-        context?.lineTo(verticalLineEnd.x, verticalLineEnd.y);
-        context?.stroke();
+        context.beginPath();
+        context.moveTo(verticalLineStart.x, verticalLineStart.y);
+        context.lineTo(verticalLineEnd.x, verticalLineEnd.y);
+        context.stroke();
 
         // Рисуем горизонтальные линии
         horizontalLines.forEach(line => {
-            context?.beginPath();
-            context?.moveTo(line.start.x, line.start.y);
-            context?.lineTo(line.end.x, line.end.y);
-            context?.stroke();
+            context.beginPath();
+            context.moveTo(line.start.x, line.start.y);
+            context.lineTo(line.end.x, line.end.y);
+            context.stroke();
         });
 
         // сброс настройки линии на непрерывную
-        context?.setLineDash([]);
+        context.setLineDash([]);
         //#endregion
 
 
@@ -158,20 +158,20 @@ const BuildingPlanCanvas: FC<BuildingPlanCanvasProps> = ({ children, currentWare
 
         //#region Рисование контрольных точек
         controlPoints.slice(0, 10).forEach((point, index) => {  // Use .slice(0, 10) to limit to 10 points
-            contex?.fillStyle = '#FF7043';
-            contex?.strokeStyle = '#fff';
-            contex?.lineWidth = 1;
-            contex?.beginPath();
-            contex?.arc(point.x, point.y, point.radius, 0, 2 * Math.PI);  // Corrected 3 * Math.PI to 2 * Math.PI
-            contex?.fill();
-            contex?.stroke();
+            context.fillStyle = '#FF7043';
+            context.strokeStyle = '#fff';
+            context.lineWidth = 1;
+            context.beginPath();
+            context.arc(point.x, point.y, point.radius, 0, 2 * Math.PI);  // Corrected 3 * Math.PI to 2 * Math.PI
+            context.fill();
+            context.stroke();
 
             // Добавляем нумерацию контрольных точек
-            context?.fillStyle = '#fff';
-            context?.font = "12px Arial";
-            context?.textAlign = 'center';  // Чтобы текст был по центру
-            context?.textBaseline = 'middle';  // Чтобы текст был по центру
-            context?.fillText(`K${index + 1}`, point.x, point.y);
+            context.fillStyle = '#fff';
+            context.font = "12px Arial";
+            context.textAlign = 'center';  // Чтобы текст был по центру
+            context.textBaseline = 'middle';  // Чтобы текст был по центру
+            context.fillText(`K${index + 1}`, point.x, point.y);
         });
         //#endregion
 
