@@ -9,6 +9,7 @@ import { getForklifts } from './services/getForklift';
 import { IForklift } from './types/interfaces/IForklift.interface';
 import { IWarehouse } from './types/interfaces/IWarehouse';
 import { getWarehouse } from './services/getWarehouse';
+import { getTrackingWarehouses } from './services/getTrackingWarehouses';
 // const Authorization = lazy(() => import('./pages/Authorization/Authorization'));
 const Views =  lazy(() => import('./components/pages/Views'));
 const Statistics = lazy(() => import('./components/pages/Statistics'));
@@ -24,11 +25,10 @@ const ROLES = {
 };
 
 const App = () => {
-
   const [currentWarehouse, setCurrentWarehouse] = useState<number>();
   const [warehouseData, setWarehouseData] = useState<IWarehouse[]>();
   const [forkliftData, setForkliftData] = useState<IForklift[]>();
-
+  const [trackingWarehouses, setTrackingWarehouses] = useState();
 
   useEffect(() => {
     getWarehouse().then(e => {
@@ -74,6 +74,12 @@ const App = () => {
     }).catch(err => {
       console.error(err);
     });
+
+    getTrackingWarehouses(currentWarehouse || 0).then((e: any) => {
+      setTrackingWarehouses(e.data.data);
+    }).catch((err: Error) => {
+      console.error(err);
+    });
   }, []);
 
   return (
@@ -81,12 +87,12 @@ const App = () => {
       <Route path='/' element={<Layout 
         warehouseData={warehouseData}
         forkliftData={forkliftData}
-        currentWarehouse={currentWarehouse}
+        currentWarehouse={currentWarehouse || 0}
         setCurrentWarehouse={setCurrentWarehouse}
       />}>
         <Route index element={
-          <Views
-            
+          <Views 
+            currentWarehouse={currentWarehouse || 0}
           />} />
         <Route path={'/statistics'} element={
           <Statistics
