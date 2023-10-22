@@ -22,6 +22,7 @@
     --frame2: #E0E0E0;
     --color: #191c30e6;
     --brd: #EDEDED;
+    --shadow: rgba(0, 0, 0, 0.12);
   }
   
   &[data-theme='dark'] {
@@ -31,6 +32,7 @@
     --frame2: #2C2C2E;
     --color: #fff;
     --brd: #343434;
+    --shadow: rgba(218, 218, 218, 0.12);
   }
 }
 
@@ -43,6 +45,7 @@
     --frame2: #2C2C2E;
     --color: #fff;
     --brd: #343434;
+    --shadow: rgba(218, 218, 218, 0.12);
   }
 }
 

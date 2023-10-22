@@ -6,6 +6,7 @@
     grid-gap: 8px;
     height: 100%;
     width: 100%;
+    max-width: 100%;
 
     .item {
         display: flex;
@@ -13,11 +14,27 @@
         gap: 1rem;
 
         &:first-child {
-            max-width: 264px;
             grid-area: 1 / 1 / 2 / 2;
         }
         &:nth-child(2) {
             grid-area: 1 / 2 / 2 / 3;
+        }
+    }
+
+    @media (max-width: 793px) {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto; 
+        // max-width: 100vw;
+        overflow-x: auto;
+
+        .item {
+            width: 100%;
+            &:first-child {
+                grid-area: 1 / 1 / 2 / 2; 
+            }
+            &:nth-child(2) {
+                grid-area: 2 / 1 / 3 / 2; 
+            }
         }
     }
 }

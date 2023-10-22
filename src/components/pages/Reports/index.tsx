@@ -12,7 +12,7 @@ const Reports: FC<ReportsProps> = ({  }) => {
 
     const reports = (
         <section className={cls.reports}>
-            <PageTitle title='# Отчеты' />
+            <PageTitle title='Отчеты' />
 
         </section>
     );

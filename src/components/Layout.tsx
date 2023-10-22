@@ -1,27 +1,34 @@
 import { FC } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Header } from './bloks/Header/inedex';
 import { ContainerGred } from './bloks/ContainerGred';
-import { Row } from './bloks/Row';
 import { GreadItem } from './bloks/ContainerGred'; 
 import { WindowScroll } from './bloks/WindowScroll';
 import { LeftMenu } from './bloks/LeftMenu';
-import { Processes  } from './ui/elements/Processes';
-import { Frame } from './bloks/Frame';
+import { IWarehouse } from '../types/interfaces/IWarehouse';
+import { IForklift } from '../types/interfaces/IForklift.interface';
 
 
 interface LayoutProps {
-    
+    warehouseData: IWarehouse[];
+    forkliftData: IForklift[];
+    setCurrentWarehouse: (e: number) => void;
+    currentWarehouse: number;
 };
 
-const Layout: FC<LayoutProps> = ({  }) => {
+const Layout: FC<LayoutProps> = ({ warehouseData, forkliftData, currentWarehouse, setCurrentWarehouse }) => {
     const layout = (
         <>
             <Header />
             <main>
                 <ContainerGred>
                     <GreadItem> 
-                        <LeftMenu />
+                        <LeftMenu 
+                            warehouseData={warehouseData} 
+                            forkliftData={forkliftData} 
+                            currentWarehouse={currentWarehouse}
+                            setCurrentWarehouse={setCurrentWarehouse}
+                        />
                     </GreadItem>
                     <GreadItem>
                         <WindowScroll>

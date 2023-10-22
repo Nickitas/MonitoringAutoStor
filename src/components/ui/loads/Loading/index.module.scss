@@ -1,0 +1,87 @@
+@import '../../../../assets/mixins/responsive_font.scss';
+
+.loadWrapper {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+    
+    .load {
+        display: flex;
+        align-items: center;
+        max-width: 50%;
+        gap: 1rem;
+    }
+    
+    .line {
+        display: inline-block;
+        width: 10vw;
+        height: 10vw;
+        max-width: 85px;
+        max-height: 85px;
+        border-radius: 50%;
+        background-color: var(--accent);
+
+        &:nth-last-child(1) {
+            animation: loading .8s 0.1s ease-in-out infinite;
+        }
+        &:nth-last-child(2) {
+            animation: loading .8s 0.2s ease-in-out infinite;
+        }
+        &:nth-last-child(3) {
+            animation: loading .8s 0.3s ease-in-out infinite;
+        }
+        &:nth-last-child(4) {
+            animation: loading .8s 0.4s ease-in-out infinite;
+        }
+    }
+
+    .hero {
+        @include responsive_font(62, 28);
+        font-weight: 700;
+        font-style: normal;
+        line-height: normal;
+        color: var(--accent);
+        text-align: center;
+        text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
+        animation: pulse 1.9s .3s ease-in infinite;
+    }
+}
+
+
+@keyframes loading {
+    0% {
+        font-weight: 700;
+        transform: translate(0, 0);
+        text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+    }
+
+    50% {
+        font-weight: 900;
+        transform: translate(0, 60%);
+        text-shadow: 8px 8px 16px rgba(255, 255, 255, 0.3);
+    }
+
+    100% {
+        font-weight: 700;
+        transform: translate(0, 0);
+        text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+    }
+}
+
+@keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.15);
+    }
+    100% {
+      transform: scale(1);
+    }
+}

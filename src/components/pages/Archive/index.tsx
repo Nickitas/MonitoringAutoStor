@@ -12,7 +12,7 @@ const Archive: FC<ArchiveProps> = ({  }) => {
 
     const archive = (
         <section className={cls.archive}>
-            <PageTitle title='# Архив' />
+            <PageTitle title='Архив' />
         </section>
     );
 

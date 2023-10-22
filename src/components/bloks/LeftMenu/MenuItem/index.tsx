@@ -1,117 +1,59 @@
 import { FC, useState } from "react";
-import { SportItem } from "../../../../apiBetnetix/getMenuList";
-import { ArrowDownIcon } from "../../../ui/svg.module";
-import { getLanguages } from "../../../../data/config/languages";
-import { sportEnum } from "../../../../types/sportEnum";
+import { IWarehouse } from "../../../../types/interfaces/IWarehouse";
+import { ArrowSmallDown, CogIcon, BookMarkIcon } from "../../../ui/svg.module";
 import cls from "./index.module.scss";
 
-export const BlockSport = ({ sport_id }: { sport_id?: string | number }) => {
-  return (
-    <div className={cls.sport}>
-      <div className={cls.name}>
-        ico - {sport_id}
-        <span>{getLanguages(`SPORT_${sport_id}`)}</span>
-      </div>
-      <div className={cls.actions}>
-        <summary>{}</summary>
-        <div className={true ? `${cls.dropArrow} ${cls.rot}` : cls.dropArrow}>
-          <ArrowDownIcon />
-        </div>
-      </div>
-    </div>
-  );
-};
 
-export const BlockChamp = ({ name }: { name?: string }) => {
-  return (
-    <div className={cls.champ}>
-      <div className={cls.name}>
-        {"ico"}
-        <span>{name}</span>
-      </div>
-      <div className={cls.actions}>
-        <summary>{"999"}</summary>
-        <div className={cls.dropArrow} onClick={() => {}}>
-          <ArrowDownIcon />
-        </div>
-      </div>
-    </div>
-  );
-};
+const MenuItem: FC<{ 
+  warehouse: IWarehouse, 
+  currentWarehouse: number;
+  setToggleCardOpen: (e: boolean) => void; 
+  setCurrentWarehouse: (e: number) => void 
+}> = ({ warehouse, currentWarehouse, setToggleCardOpen, setCurrentWarehouse }) => {
+  const [isOpen, setOpen] = useState<boolean>(false);
 
-export const BlockEvent = ({
-  name1,
-  name2,
-}: {
-  name1?: string;
-  name2?: string;
-}) => {
-  return (
-    <div className={cls.event}>
-      <div className={cls.name}>
-        <span>{`${name1} с ${name2}`}</span>
-      </div>
-    </div>
-  );
-};
-
-const MenuItem: FC<{ item: SportItem }> = ({ item }) => {
-  const { id, type, name, sport_id, champ_id, name1, name2 } = item;
-  const [filterSport, setFilterSport] = useState<Array<string>>([]);
-  const [filterChamp, setFilterChamp] = useState<Array<string>>([]);
-
-  //#region  выбор/отмена выбора спорта
-  const selectSport = (id: any) => {
-    const _id = `${id}`;
-    const index = filterSport.indexOf(_id);
-    if (index >= 0) {
-      filterSport.splice(index, 1);
-    } else {
-      filterSport.push(_id);
-    }
-    setFilterSport([...filterSport]);
+  const warehouseDetails = {
+    id: { label: 'Идентификатор', value: warehouse.id },
+    name: { label: 'Имя', value: warehouse.name },
+    square: { label: 'Общая площадь', value: warehouse.square },
+    rackingNumber: { label: 'Количество доступных стеллажей', value: warehouse.rackingNumber },
+    currentWorkload: { label: 'Текущая загруженность', value: warehouse.currentWorkload, suffix: ' %' },
+    availableSpace: { label: 'Доступное пространство(в кубических метрах)', value: warehouse.availableSpace },
+    activeOrdersNumber: { label: 'Количество активных заказов', value: warehouse.activeOrdersNumber },
+    status: { label: 'Статус', value: warehouse.status },
+    dateOfLastUpdateInfo: { label: 'Дата последнего обновления', value: new Date(warehouse.dateOfLastUpdateInfo).toLocaleString() },
+    contact: { label: 'Контакты', value: warehouse.contact }
   };
-  //#endregion
 
-  //#region выбран ли вид спорта
-  const isSelectSport = (id: any) => {
-    return filterSport.includes(`${id}`);
-  };
-  //#endregion
-
-  //#region выбор/отмена выбора чемпионата
-  const selectChamp = (id: any) => {
-    const _id = `${id}`;
-    const index = filterChamp.indexOf(_id);
-    if (index >= 0) {
-      filterChamp.splice(index, 1);
-    } else {
-      filterChamp.push(_id);
-    }
-    setFilterChamp([...filterChamp]);
-  };
-  //#endregion
-
-  //#region выбран ли вид спорта
-  const isSelectChamp = (id: any) => {
-    return filterChamp.includes(`${id}`);
-  };
-  //#endregion
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
   const menuItem = (
-    <div className={true ? `${cls.item} ${cls.open}` : cls.item} data-color={id}>
-      <div className={cls.ley1}>
-        { type == "sport" && (
-            <BlockSport 
-                sport_id={id} 
-            />
-        )}
-        {type === "champ" && (
-            <BlockChamp name={name} />
-        )}
-        {type === "event" && <BlockEvent name1={name1} name2={name2} />}
+      <div className={isOpen ? `${cls.item} ${cls.open}` : cls.item}>
+        <div className={cls.element}>
+          <div className={currentWarehouse === warehouse.id ? `${cls.active} ${cls.name}`: cls.name} onClick={() => setCurrentWarehouse(warehouse.id)}>
+            <BookMarkIcon />
+            <span>{`${warehouse.name} # ${warehouse.id}`}</span>
+          </div>
+          <div className={cls.actions}>
+            <div className={cls.status} data-status={warehouse.status} />
+            <div className={cls.dropArrow} onClick={() => setOpen(prev => !prev)}>
+              <ArrowSmallDown />
+            </div>
+          </div>
+        </div>
+        <div className={isOpen ? `${cls.drop} ${cls.open}` : cls.drop}>
+          <div className={cls.button} onClick={() => setToggleCardOpen(true)}>
+            <CogIcon/>
+            <span>Посмотреть погрузчики</span>
+          </div>
+          <div className={cls.table}>
+            {Object.values(warehouseDetails).map((detail: any) => (
+              <div className={cls.row} key={detail.value}>
+                <div className={cls.category}>{detail.label}:</div>
+                <div className={cls.value}>{detail.value}{detail.suffix || ''}</div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
   );
 
   return menuItem;

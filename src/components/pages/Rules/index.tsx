@@ -13,7 +13,7 @@ const Rules: FC<RulesProps> = ({  }) => {
 
     const _rules = (
         <section className={cls.rules}>
-            <PageTitle title='# Правила' />
+            <PageTitle title='Правила' />
             { rulesTexts.map(el => (
                 <Accordion key={el.id} summary={`${el.id+1}. ${el.title}`}>
                     { el.paragraphs.map((parag, index) => (
