@@ -74,13 +74,17 @@ const App = () => {
     }).catch(err => {
       console.error(err);
     });
-
-    getTrackingWarehouses(currentWarehouse || 0).then((e: any) => {
-      setTrackingWarehouses(e.data.data);
-    }).catch((err: Error) => {
-      console.error(err);
-    });
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      getTrackingWarehouses(currentWarehouse || 0).then((e: any) => {
+        setTrackingWarehouses(e.data.data);
+      }).catch((err: Error) => {
+        console.error(err);
+      });
+    }, 100);
+  }, [currentWarehouse]);
 
   return (
     <Routes>
@@ -92,7 +96,8 @@ const App = () => {
       />}>
         <Route index element={
           <Views 
-            currentWarehouse={currentWarehouse || 0}
+            currentWarehouse={currentWarehouse || 12}
+            trackingWarehouses={trackingWarehouses}
           />} />
         <Route path={'/statistics'} element={
           <Statistics

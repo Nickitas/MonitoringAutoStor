@@ -1,13 +1,14 @@
 import { FC, useState, useEffect } from 'react';
 
 interface LoaderProps {
+    trackingWarehouses: any;
     canvasRef: React.RefObject<HTMLCanvasElement>;
     start: { x: number, y: number };
     end: { x: number, y: number };
     duration: number;
 }
 
-const Loader: FC<LoaderProps> = ({ canvasRef, start, end, duration }) => {
+const Loader: FC<LoaderProps> = ({ canvasRef, start, end, duration, trackingWarehouses }) => {
     const [position, setPosition] = useState(start);
 
     useEffect(() => {

@@ -4,15 +4,16 @@ import { Loader } from './Loader';
 import cls from './index.module.scss';
 
 
-interface ViewsProps { 
+interface ViewsProps {
     currentWarehouse: number;
+    trackingWarehouses: any;
 };
 
 interface BuildingPlanCanvasProps {
     children: (props: { loaderCanvasRef: React.RefObject<HTMLCanvasElement> }) => ReactNode;
 };
 
-const BuildingPlanCanvas: FC<BuildingPlanCanvasProps> = ({ children, currentWarehouse }) => {
+const BuildingPlanCanvas: FC<BuildingPlanCanvasProps> = ({ children, currentWarehouse, trackingWarehouses }) => {
     const backgroundCanvasRef = useRef<HTMLCanvasElement>(null);
     const loaderCanvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -193,17 +194,66 @@ const BuildingPlanCanvas: FC<BuildingPlanCanvasProps> = ({ children, currentWare
 // {x: 486.4, y: 279} 
 // {x: 486.4, y: 548}
 
-const Views: FC<ViewsProps> = () => {
+const Views: FC<ViewsProps> = ({ trackingWarehouses }) => {
+
     return (
         <section className={cls.views}>
             <PageTitle title="Мониторинг" />
             <div className={cls.buildingPlan}>
                 <BuildingPlanCanvas>
                     {({ loaderCanvasRef }) => (
-                        <Loader canvasRef={loaderCanvasRef} start={{ x: 665, y: 565 }} end={{ x: 665, y: 350 }} duration={2000} />
+                        <Loader trackingWarehouses={trackingWarehouses} canvasRef={loaderCanvasRef} start={{ x: 665, y: 565 }} end={{ x: 665, y: 350 }} duration={2000} />
                     )}
                 </BuildingPlanCanvas>
             </div>
+            {trackingWarehouses && <div className={cls.scroll}>
+                <h2>Информация о складе</h2>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Название</th>
+                            <th>Значение</th>
+                        </tr>
+                        {Object.keys(trackingWarehouses)?.map((key, index) => {
+                            if (key !== "tasks" && key !== "forklifts" && key !== "points") {
+                                return (
+                                    <tr key={index}>
+                                        <td>{key}</td>
+                                        <td>{trackingWarehouses[key]}</td>
+                                    </tr>
+                                );
+                            }
+                            return null;
+                        })}
+                    </tbody>
+                </table>
+
+                <h2>Список задач</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product ID</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Статус</th>
+                            <th>Расстояние</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {trackingWarehouses.tasks.map((task: any) => (
+                            <tr key={task.id}>
+                                <td>{task.id}</td>
+                                <td>{task.product_id}</td>
+                                <td>{task.start_time}</td>
+                                <td>{task.end_time}</td>
+                                <td>{task.status === 0 ? 'Ожидает' : task.status === 1 ? 'В работе' : 'Завершен'}</td>
+                                <td>{task.distance}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>}
         </section>
     );
 };

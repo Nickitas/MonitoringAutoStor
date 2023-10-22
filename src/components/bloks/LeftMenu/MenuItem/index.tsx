@@ -21,14 +21,14 @@ const MenuItem: FC<{
     availableSpace: { label: 'Доступное пространство(в кубических метрах)', value: warehouse.availableSpace },
     activeOrdersNumber: { label: 'Количество активных заказов', value: warehouse.activeOrdersNumber },
     status: { label: 'Статус', value: warehouse.status },
-    dateOfLastUpdateInfo: { label: 'Дата последнего обновления', value: new Date(warehouse.dateOfLastUpdateInfo).toLocaleString() },
+    dateOfLastUpdateInfo: { label: 'Дата последнего обновления', value: new Date(warehouse.dateOfLastUpdateInfo || 0).toLocaleString() },
     contact: { label: 'Контакты', value: warehouse.contact }
   };
 
   const menuItem = (
       <div className={isOpen ? `${cls.item} ${cls.open}` : cls.item}>
         <div className={cls.element}>
-          <div className={currentWarehouse === warehouse.id ? `${cls.active} ${cls.name}`: cls.name} onClick={() => setCurrentWarehouse(warehouse.id)}>
+          <div className={currentWarehouse === warehouse.id ? `${cls.active} ${cls.name}`: cls.name} onClick={() => setCurrentWarehouse(warehouse.id || 0)}>
             <BookMarkIcon />
             <span>{`${warehouse.name} # ${warehouse.id}`}</span>
           </div>
