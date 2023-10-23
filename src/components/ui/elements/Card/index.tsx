@@ -43,7 +43,7 @@ const Card: FC<CardProps> = ({
                     </div>
                 </div>
                 <div className={cls.scroll}>
-                    { forklift?.filter(item => item.warehouse_id === currentWarehouse).map(e => (
+                    {/* { forklift?.filter(item => item.warehouse_id === currentWarehouse).map(e => (
                         <div key={e.id}>
                             <h3>Погрузчик: {e.name}</h3>
                             <div className={cls.table}>
@@ -81,7 +81,7 @@ const Card: FC<CardProps> = ({
                                 </div>
                             </div>
                         </div>
-                    ))}
+                    ))} */}
                 </div>
             </nav>
         </div>

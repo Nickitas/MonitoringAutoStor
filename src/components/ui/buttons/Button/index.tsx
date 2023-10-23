@@ -1,11 +1,11 @@
-import { FC, useState } from 'react';
-import cls from './index.module.scss';
+// import { FC, useState } from 'react';
+// import cls from './index.module.scss';
 
 
-interface ButtonProps {
-    mode: ''
-};
+// interface ButtonProps {
+//     mode: ''
+// };
 
-const Button = () => {
+// const Button = () => {
 
-}
+// }

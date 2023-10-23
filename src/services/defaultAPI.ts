@@ -21,7 +21,7 @@ export const methodDefault = async (
         data: e,
       };
     })
-    .catch((e) => {
+    .catch(() => {
       return { data: [] };
     });
 };

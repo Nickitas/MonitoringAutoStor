@@ -10,6 +10,15 @@ interface LoaderProps {
 
 const Loader: FC<LoaderProps> = ({ canvasRef, start, end, duration, trackingWarehouses }) => {
     const [position, setPosition] = useState(start);
+    
+    useEffect(() => {
+        
+    }, [])
+
+
+    console.log(trackingWarehouses)
+
+
 
     useEffect(() => {
         let startTime: number;
@@ -36,16 +45,20 @@ const Loader: FC<LoaderProps> = ({ canvasRef, start, end, duration, trackingWare
         const canvas = canvasRef.current;
         if (!canvas) return;
 
-        const context = canvas.getContext('2d');
-        context.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Рисуем погрузчик в текущей позиции
-        context.fillStyle = '#526ED3';
-        context.strokeStyle = '#111';
-        context.lineWidth = 1;
-        context.beginPath();
-        context.arc(position.x, position.y, 10, 0, 2 * Math.PI);
-        context.fill();
+        const context = canvas.getContext('2d');
+
+        if (context !== null) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Рисуем погрузчик в текущей позиции
+            context.fillStyle = '#526ED3';
+            context.strokeStyle = '#111';
+            context.lineWidth = 1;
+            context.beginPath();
+            context.arc(position.x, position.y, 10, 0, 2 * Math.PI);
+            context.fill();
+        }
 
     }, [position, canvasRef]);
 
@@ -53,4 +66,9 @@ const Loader: FC<LoaderProps> = ({ canvasRef, start, end, duration, trackingWare
 };
 
 export { Loader };
+
+
+
+
+
 

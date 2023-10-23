@@ -9,6 +9,7 @@ import { getForklifts } from './services/getForklift';
 import { IForklift } from './types/interfaces/IForklift.interface';
 import { IWarehouse } from './types/interfaces/IWarehouse';
 import { getWarehouse } from './services/getWarehouse';
+import { getDistance } from './services/getDistance';
 import { getTrackingWarehouses } from './services/getTrackingWarehouses';
 // const Authorization = lazy(() => import('./pages/Authorization/Authorization'));
 const Views =  lazy(() => import('./components/pages/Views'));
@@ -18,16 +19,16 @@ const Archive = lazy(() => import('./components/pages/Archive'));
 const Rules = lazy(() => import('./components/pages/Rules'));
 
 
-const ROLES = {
-  'User': 3,
-  'Operator': 2,
-  'Admin': 1
-};
+// const ROLES = {
+//   'User': 3,
+//   'Operator': 2,
+//   'Admin': 1
+// };
 
 const App = () => {
   const [currentWarehouse, setCurrentWarehouse] = useState<number>();
-  const [warehouseData, setWarehouseData] = useState<IWarehouse[]>();
-  const [forkliftData, setForkliftData] = useState<IForklift[]>();
+  const [warehouseData, setWarehouseData] = useState<IWarehouse[] | any>();
+  const [forkliftData, setForkliftData] = useState<IForklift[] | any>();
   const [trackingWarehouses, setTrackingWarehouses] = useState();
 
   useEffect(() => {
@@ -74,11 +75,17 @@ const App = () => {
     }).catch(err => {
       console.error(err);
     });
+    
+    getDistance().then(e => {
+        setForkliftData(e);
+    }).catch(err => {
+      console.error(err);
+    });
   }, []);
 
   useEffect(() => {
     setTimeout(() => {
-      getTrackingWarehouses(currentWarehouse || 0).then((e: any) => {
+      getTrackingWarehouses(currentWarehouse || 1).then((e: any) => {
         setTrackingWarehouses(e.data.data);
       }).catch((err: Error) => {
         console.error(err);

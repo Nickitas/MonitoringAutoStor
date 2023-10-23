@@ -11,11 +11,15 @@ interface ViewsProps {
 
 interface BuildingPlanCanvasProps {
     children: (props: { loaderCanvasRef: React.RefObject<HTMLCanvasElement> }) => ReactNode;
+    currentWarehouse?: number;
+    trackingWarehouses?: any,
 };
 
 const BuildingPlanCanvas: FC<BuildingPlanCanvasProps> = ({ children, currentWarehouse, trackingWarehouses }) => {
     const backgroundCanvasRef = useRef<HTMLCanvasElement>(null);
     const loaderCanvasRef = useRef<HTMLCanvasElement>(null);
+
+    console.log(currentWarehouse, trackingWarehouses)
 
     useEffect(() => {
         //#region Схема
@@ -31,7 +35,7 @@ const BuildingPlanCanvas: FC<BuildingPlanCanvasProps> = ({ children, currentWare
 
         const context = canvas.getContext('2d');
 
-        const loaderHeight = 50;
+        // const loaderHeight = 50;
         const rackWidth = canvasWidth * 0.6;
 
         const fixedRackHeight = 100;
@@ -43,12 +47,14 @@ const BuildingPlanCanvas: FC<BuildingPlanCanvasProps> = ({ children, currentWare
 
         //#region Рисование стеллажей
         const drawRack = (x: number, y: number) => {
+            if (context !== null) {
             context.fillStyle = '#F4F4F4';
             context.strokeStyle = '#000';
             context.lineWidth = 2;
             context.fillRect(x, y, rackWidth, fixedRackHeight);
             context.strokeRect(x, y, rackWidth, fixedRackHeight);
         }
+    }
 
         const startX = (canvasWidth - rackWidth) / 2;
         let startY = gapBetweenRacks; // начнем с первого интервала
@@ -81,6 +87,7 @@ const BuildingPlanCanvas: FC<BuildingPlanCanvasProps> = ({ children, currentWare
 
         //#region  Рисование точек выгрузки
         const drawUnloadPoint = (x: number, y: number, label: string) => {
+            if (context !== null) {
             context.fillStyle = '#526ED3';
             context.strokeStyle = '#526ED3';
             context.lineWidth = 1;
@@ -90,6 +97,7 @@ const BuildingPlanCanvas: FC<BuildingPlanCanvasProps> = ({ children, currentWare
 
             context.font = "18px Arial";
             context.fillText(label, x + 10, y + 5);
+            }
         }
 
         unloadPoints.forEach((point, index) => {
@@ -109,6 +117,7 @@ const BuildingPlanCanvas: FC<BuildingPlanCanvasProps> = ({ children, currentWare
             { start: { x: verticalLineStart.x, y: canvasHeight - gapBetweenRacks / 2 }, end: { x: startX, y: canvasHeight - gapBetweenRacks / 2 } } // между третьим стеллажом и нижней границей
         ];
 
+        if (context !== null) {
         context.strokeStyle = 'rgba(82, 110, 211, 0.32)';
         context.lineWidth = 2;
         context.setLineDash([5, 10]); // пунктир
@@ -130,6 +139,7 @@ const BuildingPlanCanvas: FC<BuildingPlanCanvasProps> = ({ children, currentWare
         // сброс настройки линии на непрерывную
         context.setLineDash([]);
         //#endregion
+     }
 
 
         //#region Определение координат контрольных точек
@@ -159,24 +169,26 @@ const BuildingPlanCanvas: FC<BuildingPlanCanvasProps> = ({ children, currentWare
 
         //#region Рисование контрольных точек
         controlPoints.slice(0, 10).forEach((point, index) => {  // Use .slice(0, 10) to limit to 10 points
-            context.fillStyle = '#FF7043';
-            context.strokeStyle = '#fff';
-            context.lineWidth = 1;
-            context.beginPath();
-            context.arc(point.x, point.y, point.radius, 0, 2 * Math.PI);  // Corrected 3 * Math.PI to 2 * Math.PI
-            context.fill();
-            context.stroke();
+            if (context !== null) {
+                context.fillStyle = '#FF7043';
+                context.strokeStyle = '#fff';
+                context.lineWidth = 1;
+                context.beginPath();
+                context.arc(point.x, point.y, point.radius, 0, 2 * Math.PI);  // Corrected 3 * Math.PI to 2 * Math.PI
+                context.fill();
+                context.stroke();
 
-            // Добавляем нумерацию контрольных точек
-            context.fillStyle = '#fff';
-            context.font = "12px Arial";
-            context.textAlign = 'center';  // Чтобы текст был по центру
-            context.textBaseline = 'middle';  // Чтобы текст был по центру
-            context.fillText(`K${index + 1}`, point.x, point.y);
+                // Добавляем нумерацию контрольных точек
+                context.fillStyle = '#fff';
+                context.font = "12px Arial";
+                context.textAlign = 'center';  // Чтобы текст был по центру
+                context.textBaseline = 'middle';  // Чтобы текст был по центру
+                context.fillText(`K${index + 1}`, point.x, point.y);
+            }
         });
         //#endregion
 
-        const controlPointsCoordinates = controlPoints.map(point => ({ x: point.x, y: point.y }));
+        // const controlPointsCoordinates = controlPoints.map(point => ({ x: point.x, y: point.y }));
     }, []);
 
     return (

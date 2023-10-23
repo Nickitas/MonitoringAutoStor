@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState } from "react";
 import { Filter } from "../Filter";
 import { MenuItem } from "./MenuItem";
 import { Card } from "../../ui/elements/Card";
